@@ -198,14 +198,108 @@
 //}
 
 
-////////////////////////////  Tapsiriq 6.4
+////////////////////////////  Tapsiriq 6.4.1
+using System;
+using System.Collections;
 
 //static class CurrencyConverter
 //{
 //    /// texmini valyuta mezenneleri teyin edek
-//    private static readonly Dictionary<string, decimal> exchagRates = new Dictionary<string, decimal>
+//    private static readonly Dictionary<string, decimal> exchangeRates = new Dictionary<string, decimal>
 //    {
-//        {"AZN", 0.59 m }, //1 AZN =0.59 USD
-//        {"EUR", 1.08 m }, // 1EUR = 1.08 USD
-//        {"GBP", 1.25 m }, // 1GBP = 1.25 USD
+//        {"AZN", 0.59m }, //1 azn =0.59 usd
+//        {"EUR", 1.08m }, // 1eur = 1.08 usd
+//        {"GBP", 1.25m }, // 1gbp = 1.25 usd
 //    };
+//    //Valyutani USD ye cevirmek metodu
+//    public static decimal ConvertToUSD (decimal amont, string currency)
+//    {
+//        currency = currency.ToUpper(); //Kicik herflerle daxil olarsa problem yaratmasin
+//        if (exchangeRates.ContainsKey(currency))
+//        {
+//            return amont * exchangeRates[currency];
+//        }
+//        else
+//        {
+//            throw new ArgumentException("Desteklenmeyen valyuta novu. ");
+//        }
+//    }
+//}
+
+//////// Esas hisse
+
+//class Program
+//{
+//    static void Main()
+//    {
+//        //CurrencyConverter istifade ederek valyuta cevirme
+//        decimal amountInAZN = 10;
+//        decimal amountInUSD = CurrencyConverter.ConvertToUSD(amountInAZN, "AZN");
+//        Console.WriteLine($"{amountInAZN} AZN ={amountInUSD} USD");
+
+//        decimal amountInEUR = 100;
+//        decimal amountInUSDFromEUR = CurrencyConverter.ConvertToUSD(amountInEUR, "EUR");
+//        Console.WriteLine($"{amountInEUR} EUR ={amountInUSDFromEUR} USD");
+
+//        decimal amountInGBP = 1000;
+//        decimal amountInUSDFromGBP = CurrencyConverter.ConvertToUSD(amountInGBP, "GBP");
+//        Console.WriteLine($"{amountInGBP} GBP ={amountInUSDFromGBP} USD");
+//        Console.WriteLine();
+
+//    }
+//}
+
+///////////////////// Tapsiriq 6.4.2
+
+
+////Warehouse<T> generic class i (yalniz class tipleri ile isleyir)
+//class Warehouse<T> where T : class
+//{
+//    private List<T> items = new List<T>();
+//    public void AddItem(T item)
+//    {
+//        items.Add(item);
+//    }
+//    //Butun Mehsullari qaytarmaq metodu
+//    public List<T> GetAllItems()
+//    {
+//        return new List<T>(items);
+//    }
+//}
+////Numune ucun Product class i yaradilir
+//class Product
+//{
+//    public string Name { get; set; }
+//    public decimal Price { get; set; }
+
+//    public Product(string name, decimal price)
+//    {
+//        Name = name;
+//        Price = price;
+//    }
+
+//    public override string ToString()
+//    {
+//        return $"{Name} - ${Price}";
+//    }
+//}
+//class Program
+//{
+//    static void Main()
+//    {
+//        //Warehouse<Product> istifadesi
+//        Warehouse<Product> warehouse = new Warehouse<Product>();
+//        warehouse.AddItem(new Product("Laptop", 1200));
+//        warehouse.AddItem(new Product("Smartphone", 800));
+
+//        //Anbarda olan mehsulu gostermek
+//        Console.WriteLine("Anbarda olan mehsullar: ");
+//        foreach (var item in warehouse.GetAllItems()) 
+//        {
+//            Console.WriteLine(item);
+//        }
+//    }
+//}
+
+/////////////////////////////////// Tapsiriq 6.5
+
