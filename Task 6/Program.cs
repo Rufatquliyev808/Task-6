@@ -303,3 +303,106 @@ using System.Collections;
 
 /////////////////////////////////// Tapsiriq 6.5
 
+using System;
+
+// Recipe adlı əsas class
+class Recipe
+{
+    public string Name { get; set; }
+    public double BaseCalories { get; set; }
+
+    public Recipe(string name, double baseCalories)
+    {
+        Name = name;
+        BaseCalories = baseCalories;
+    }
+
+    // Virtual metod: Kalori hesablanması
+    public virtual double CalculateCalories()
+    {
+        return BaseCalories;
+    }
+}
+
+// Pizza class-ı Recipe-dən miras alır və CalculateCalories() metodunu override edir
+class Pizza : Recipe
+{
+    public double ToppingCalories { get; set; }
+
+    public Pizza(string name, double baseCalories, double toppingCalories)
+        : base(name, baseCalories)
+    {
+        ToppingCalories = toppingCalories;
+    }
+
+    public override double CalculateCalories()
+    {
+        return BaseCalories + ToppingCalories;
+    }
+}
+
+// Salad class-ı Recipe-dən miras alır və CalculateCalories() metodunu override edir
+class Salad : Recipe
+{
+    public double DressingCalories { get; set; }
+
+    public Salad(string name, double baseCalories, double dressingCalories)
+        : base(name, baseCalories)
+    {
+        DressingCalories = dressingCalories;
+    }
+
+    public override double CalculateCalories()
+    {
+        return BaseCalories + (DressingCalories * 0.5); // Dressing kalorisini yarı hesablayırıq
+    }
+}
+
+// Order class-ı
+class Order
+{
+    public double PricePerItem { get; set; }
+
+    public Order(double pricePerItem)
+    {
+        PricePerItem = pricePerItem;
+    }
+
+    // Overload edilmiş metodlar: Hesablamalar fərqli giriş parametrləri ilə aparılır
+    public double CalculateTotalPrice(int count)
+    {
+        return count * PricePerItem;
+    }
+
+    public double CalculateTotalPrice(int count, double discountPercentage)
+    {
+        double totalPrice = count * PricePerItem;
+        double discountAmount = totalPrice * (discountPercentage / 100);
+        return totalPrice - discountAmount;
+    }
+}
+
+// Proqramın əsas hissəsi
+class Program
+{
+    static void Main()
+    {
+        // Recipe class-larının test edilməsi
+        Pizza pizza = new Pizza("Pepperoni Pizza", 800, 200);
+        Salad salad = new Salad("Ceasar Salad", 300, 100);
+
+        Console.WriteLine($"{pizza.Name} kalori: {pizza.CalculateCalories()} kcal");
+        Console.WriteLine($"{salad.Name} kalori: {salad.CalculateCalories()} kcal");
+
+        Console.WriteLine();
+
+        // Order class-ının test edilməsi
+        Order order = new Order(12.5); // Hər məhsulun qiyməti $12.5
+
+        double totalPrice1 = order.CalculateTotalPrice(5); // 5 məhsulun ümumi qiyməti
+        double totalPrice2 = order.CalculateTotalPrice(5, 10); // 5 məhsul və 10% endirim
+
+        Console.WriteLine($"5 məhsulun ümumi qiyməti: ${totalPrice1}");
+        Console.WriteLine($"5 məhsulun 10% endirimlə ümumi qiyməti: ${totalPrice2}");
+    }
+}
